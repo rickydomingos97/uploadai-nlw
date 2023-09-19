@@ -17,7 +17,11 @@ const statusMessages = {
   success: 'Success!'
 }
 
-export function VideoInputForm() {
+interface VideoInputFormProps {
+  onVideoUploaded: (id: string) => void
+}
+
+export function VideoInputForm(props: VideoInputFormProps) {
 // state no react
   const [videoFile, setVideoFile] = useState<File | null>(null)
   const [status, setStatus] = useState<Status>('waiting')
@@ -107,10 +111,10 @@ export function VideoInputForm() {
 
     setStatus('success')
 
+    props.onVideoUploaded(videoId)
+
     console.log('finalizou');
-    
-
-
+  
     console.log(response.data);
     console.log(audioFile, prompt);
 
