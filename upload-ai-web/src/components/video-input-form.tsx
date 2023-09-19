@@ -11,10 +11,10 @@ import { api } from "@/lib/axios";
 type Status = 'missing' | 'converting' | 'uploading' | 'generating' | 'success'
 
 const statusMessages = {
-  converting: 'Converting',
-  generating: 'Generating',
-  uploading: 'Uploading',
-  success: 'Success'
+  converting: 'Converting...',
+  generating: 'Generating...',
+  uploading: 'Uploading...',
+  success: 'Success!'
 }
 
 export function VideoInputForm() {
@@ -158,7 +158,7 @@ export function VideoInputForm() {
       data-success={status === 'success'}
       disabled={status != 'waiting'}
       type='submit'
-      className='w-full data-[success=true]:bg-emerald-500 data-[success=true]:text-stone-950'>
+      className='w-full data-[success=true]:bg-green-500 data-[success=true]:text-stone-950'>
         {status === 'waiting' ? (
           <>
             Carregar video
