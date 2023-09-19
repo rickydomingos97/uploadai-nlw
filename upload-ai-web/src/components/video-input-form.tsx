@@ -8,7 +8,7 @@ import { getFFmpeg } from "@/lib/ffmpeg";
 import { fetchFile } from '@ffmpeg/util'
 
 export function VideoInputForm() {
-
+// state no react
   const [videoFile, setVideoFile] = useState<File | null>(null)
   const promptInputRef = useRef<HTMLTextAreaElement>(null)
 
@@ -58,7 +58,7 @@ export function VideoInputForm() {
       type: 'audio/mpeg'
     })
 
-    console.log('Conver finished.')
+    console.log('Convert finished.')
 
     return audioFile
 
@@ -74,7 +74,6 @@ export function VideoInputForm() {
     }
 
     // converter o video em audio
-
     const audioFile = await convertVideoToAudio(videoFile)
 
     console.log(audioFile, prompt);
