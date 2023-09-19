@@ -18,8 +18,22 @@ export function App() {
     console.log(template)
   }
 
-  const {} = useCompletion({
-    api: 'http://localhost:3333/ai/complete'
+  const {
+    input,
+    setInput,
+    handleInputChange,
+    handleSubmit,
+    completion,
+    isLoading,
+  } = useCompletion({
+    api: 'http://localhost:3333/ai/complete',
+    body: {
+      videoId,
+      temperature,
+    },
+    headers: {
+      'Content-type': 'application/json',
+    }
   })
 
   return (
@@ -40,11 +54,16 @@ export function App() {
           <div className='grid grid-rows-2 gap-4 flex-1'>
             <Textarea
               className='resize-none p-5 leading-relaxed'
-              placeholder='Inclua o prompt para a IA...' />
+              placeholder='Inclua o prompt para a IA...'
+              value={input}
+              onChange={handleInputChange}
+              />
             <Textarea
               className='resize-none p-5 leading-relaxed'
               placeholder='Resultado gerado pela AI:'
-              readOnly />
+              readOnly
+              value={completion}
+              />
           </div>
 
           <p className='text-sm text-muted-foreground'>Lembre-se: você pode utilizar a variável <code>{'{transcription}'}</code> no seu prompt para adicionar o conteudo da transcrição do vídeo selecionado.</p>
@@ -54,11 +73,11 @@ export function App() {
           <VideoInputForm onVideoUploaded={setVideoId}/>
           <Separator />
 
-          <form className='space-y-6'>
+          <form onSubmit={handleSubmit} className='space-y-6'>
 
             <div className='space-y-2'>
               <Label>Prompt</Label>
-              <PromptSelect onPromptSelect={handlePromptSelected}/>
+              <PromptSelect onPromptSelect={setInput}/>
             </div>
 
 
@@ -93,7 +112,7 @@ export function App() {
 
             <Separator />
 
-            <Button type="submit" className='w-full hover:bg-green-500'>
+            <Button disabled={isLoading} type="submit" className='w-full hover:bg-green-500'>
               Execute
               <Wand2 className='w-4 h-4 ml-2' />
             </Button>
